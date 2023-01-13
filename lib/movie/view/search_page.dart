@@ -40,100 +40,71 @@ class _SearchMoviePageState extends State<SearchMoviePage> {
             if (snapshot.hasData) {
               final results = snapshot.data!;
               return (results.resultsList.isNotEmpty)?
-              SingleChildScrollView(
-                child: Container(
-                  height: MediaQuery.of(context).size.height*0.75,
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsetsDirectional.only(start:4),
-                  child:ListView.builder(
-                      itemCount: 7,
-                      itemBuilder: (BuildContext context, int index) {
-                        extraindex += 2;
-                        return Container(
-                          height:MediaQuery.of(context).size.height*0.125,
-                          width:MediaQuery.of(context).size.width,
-                          child: Row(
-                              children:[
-                                Stack(
-                                    children: [
-                                      InkWell(
-                                        child: Container(
-                                          height: MediaQuery.of(context).size.height,
-                                          width: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .width * 0.43,
-                                          child: Column(
-                                            children: <Widget>[
-                                              ClipRRect(
-                                                borderRadius: BorderRadius.circular(8),
-                                                child: Image.network(
-                                                  'https://image.tmdb.org/t/p/w500${imagesresults.resultsList[extraindex].imageLink}',
-                                                  width: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .width,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-
-                                            ],
-                                          ),
-                                        ),
-                                        onTap: () {
-
-
-                                        },
+              Container(
+              //  height: MediaQuery.of(context).size.height*0.75,
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsetsDirectional.only(start:4),
+                child:ListView.builder(
+                  shrinkWrap: true,
+                    itemCount: 7,
+                    itemBuilder: (BuildContext context, int index) {
+                      extraindex += 2;
+                      return Container(
+                        height:MediaQuery.of(context).size.height*0.18,
+                        width:MediaQuery.of(context).size.width,
+                        child: Row(
+                            children:[
+                              Expanded(child: InkWell(
+                                child: Container(
+                                    height:MediaQuery.of(context).size.height*0.16,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                        'https://image.tmdb.org/t/p/w500${imagesresults.resultsList[extraindex].imageLink}',
                                       ),
-                                      Positioned(top: 65.0,
-                                          right: 100.0, child: Text(results.resultsList[extraindex].genre, style: GoogleFonts.poppins(
-                                              fontSize: 16, color: Colors.white),))
-                                    ]
-                                ),
-                                const SizedBox(width:10),
-                                Stack(
-                                    children: [
-                                      InkWell(
-                                        child: Container(
-
-                                          height: MediaQuery.of(context).size.height,
-                                          width: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .width * 0.43,
-                                          child: Column(
-                                            children: <Widget>[
-                                              ClipRRect(
-                                                borderRadius: BorderRadius.circular(8),
-                                                child: Image.network(
-                                                  'https://image.tmdb.org/t/p/w500${imagesresults.resultsList[extraindex+1].imageLink}',
-                                                  width: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .width,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-
-                                            ],
-                                          ),
-                                        ),
-                                        onTap: () {},
-                                      ),
-                                      Positioned(top: 65.0,
-                                          right: 78.0, child: Text(results.resultsList[extraindex+1].genre, style: GoogleFonts.poppins(
-                                              fontSize: 16, color: Colors.white),))
-                                    ]
+                                      fit: BoxFit.fill
+                                    )
+                                  ),
+                                  child: Container(
+                                    alignment: Alignment.bottomLeft,
+                                    padding: EdgeInsets.only(left: 10,bottom: 10),
+                                    child: Text(results.resultsList[extraindex].genre, style: GoogleFonts.poppins(
+                                        fontSize: 16, color: Colors.white),),
+                                  )
                                 ),
 
+                              ))
+                              , SizedBox(width:10),
+                              Expanded(child: InkWell(
+                                child: Container(
+                                    height:MediaQuery.of(context).size.height*0.16,
+                                    //   constraints:BoxConstraints(),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                              'https://image.tmdb.org/t/p/w500${imagesresults.resultsList[extraindex+1].imageLink}',
+                                            ),
+                                            fit: BoxFit.fill
+                                        )
+                                    ),
+                                    child: Container(
+                                      alignment: Alignment.bottomLeft,
+                                      padding: EdgeInsets.only(left: 10,bottom: 10),
+                                      child: Text(results.resultsList[extraindex+1].genre, style: GoogleFonts.poppins(
+                                          fontSize: 16, color: Colors.white),),
+                                    )
+                                ),
 
-                              ]
-                          ),
-                        );
+                              ))
 
-                      }
-                  ),),
-              ):
+                            ]
+                        ),
+                      );
+
+                    }
+                ),):
 
               const Center(
                 child: Text('No Data Found'),
