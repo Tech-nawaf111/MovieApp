@@ -5,6 +5,8 @@ import 'package:flutter_movie_app/movie/utility/constants.dart';
 import '../model/movie_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'details_page.dart';
+
 // ignore: must_be_immutable
 class ResultMoviePage extends StatefulWidget {
   ResultMoviePage({super.key, required this.searchText});
@@ -62,19 +64,28 @@ class _ResultsMoviePageState extends State<ResultMoviePage> {
                               children: [
                                 Expanded(
                                   flex: 3,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: AppColors.secondaryColorOne,
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                      image: DecorationImage(
-                                        image: NetworkImage(
-                                          'https://image.tmdb.org/t/p/w500${results.resultsList[index].imageLink}',
+                                  child: GestureDetector(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: AppColors.secondaryColorOne,
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(10),
                                         ),
-                                        fit: BoxFit.fill,
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                            'https://image.tmdb.org/t/p/w500${results.resultsList[index].imageLink}',
+                                          ),
+                                          fit: BoxFit.fill,
+                                        ),
                                       ),
                                     ),
+                                    onTap: (){
+                                      Navigator.push<void>(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MovieDetailPage(searchId:results.resultsList[index].id ,)),
+                                      );
+                                    },
                                   ),
                                 ),
                                 Expanded(
